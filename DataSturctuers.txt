@@ -1,0 +1,267 @@
+#include <iostream>
+
+using namespace std;
+
+class Employee{
+ public:
+    string Name_of_Employee , First_day_of_work,Address_of_employee;
+    int ID_of_Employee, PhoneNo_of_employee, Work_hours, Salary;
+   
+    Employee* next;
+    Employee* head = NULL;};
+Employee* head = NULL;
+int i = 0;
+void InsertEmployee (Employee** h_ref ,string Name_Employee ,string First_day_work,
+string Address_employee,
+int ID_Employee, int PhoneNo_employee, int working_hours, int Sal){
+        
+    //Employee *head = NULL;
+    Employee *newEmployee = new Employee();
+    newEmployee->Name_of_Employee = Name_Employee;
+    newEmployee->First_day_of_work = First_day_work;
+    newEmployee->Address_of_employee =Address_employee;
+    newEmployee->ID_of_Employee = ID_Employee;
+    newEmployee->PhoneNo_of_employee = PhoneNo_employee;
+    newEmployee->Work_hours = working_hours;
+    newEmployee->Salary = Sal;
+    newEmployee->next =(*h_ref);
+    
+    (*h_ref) = newEmployee;
+}
+
+void cheking(Employee**head_ref, int key)
+{
+    Employee* temp = *head_ref;
+    Employee* prev = NULL;
+    int found=0;
+     if (temp == NULL ) {
+        }
+        else {
+    if (temp != NULL && temp->ID_of_Employee == key)
+    {
+        cout << "cant insert this Employee,this ID already exist , try again" << endl;
+         exit(0);
+         }
+     }
+}
+
+void DeleteEmployee(Employee**head_ref, int key)
+{
+    Employee* temp = *head_ref;
+    Employee* prev = NULL;
+    int found=0;
+     if (temp == NULL ) {
+            cout << "there is no record of this system to be deleting ."<<endl;
+        }
+        else {
+    if (temp != NULL && temp->ID_of_Employee == key)
+    {
+        *head_ref = temp->next; 
+        delete temp;            // free old head 
+        cout << "Employee is deleted successfully" << endl;
+        found = 1;
+        return;  }
+      else
+    {
+    while (temp != NULL && temp->ID_of_Employee != key)
+    {
+        prev = temp;
+        temp = temp->next;  }
+    if (temp == NULL)
+            cout << "\nThere is no employee with the ID " << key << " in the system\n";
+        return;
+    prev->next = temp->next;
+    delete temp;
+    }}
+}
+void UpdateEmployee (Employee* Update){
+    int ID_Employee ,PhoneNo_employee , Working_hours ,Sal ;
+   string Name_Employee , First_day_work ,Address_employee;
+    cout<<"Enter the ID of employee "<<endl;
+    cin>> ID_Employee;
+    if (Update == NULL ) {
+            cout << "there is no record of this employee in this system.";     }
+    else {
+            while (Update != NULL) {
+            if (Update->ID_of_Employee==ID_Employee) {
+    cout<<"Enter the new name of employee "<<endl;
+    cin>>Name_Employee;
+    cout<<"Enter the First day of work "<<endl;
+    cin>>First_day_work;
+    cout<<"Enter the new PhoneNO of employee "<<endl;
+    cin>> PhoneNo_employee;
+    cout<<"Enter the new Address of employee "<<endl;
+    cin>> Address_employee;
+    cout<<"Enter the new workHourse "<<endl;
+    cin>> Working_hours;
+    cout<<"Enter the new salary of employee "<<endl;
+    cin>> Sal;
+    
+	Update->Name_of_Employee = Name_Employee;
+    Update->First_day_of_work = First_day_work;
+    Update->Address_of_employee =Address_employee;
+    Update->PhoneNo_of_employee = PhoneNo_employee;
+    Update->Work_hours = Working_hours;
+    Update->Salary = Sal;
+    cout << "Employee is updated successfully" << endl;
+			 break;
+		 }
+	 }
+}}
+void showEmployee(Employee*h){
+    int i = 1;
+    
+    if (h ==NULL){
+        cout<<"There is no Employee"<<endl;}
+    while (h != NULL){
+       cout << i << "-\n";
+                i++;
+                
+        cout<< "\tEmployee name: "<< h->Name_of_Employee<<endl;
+        cout<< ("\tEmployee ID: ")<< h->ID_of_Employee<<endl;
+        cout<< ("\tFirst Day: ")<< h->First_day_of_work<<endl;
+        cout << "\tEmployee Phone Number: "<< h->PhoneNo_of_employee<<endl;
+        cout<< ("\tEmployee Address: ")<< h->Address_of_employee<<endl;
+         cout<< ("\tEmployee's work hours: ")<< h->Work_hours<<endl;
+        cout<< ("\tEmployee Salary: ")<< h->Salary<<endl;
+       
+        h = h->next; }}
+    
+void searchEmployee (Employee* temp){
+    int ID_Employee;
+    cout<<"Enter the ID of employee "<<endl;
+    cin>> ID_Employee;
+    //Employee* temp;
+        // if there is no employee with this ID
+        if (temp == NULL ) {
+            cout << "There is no record of this employee in this system.";      }
+         else {
+            while (temp != NULL) {
+                if (temp->ID_of_Employee==ID_Employee) {
+                   cout<< temp->Name_of_Employee<<endl;     
+                   cout<< temp->First_day_of_work<<endl;
+                   cout<< temp->Address_of_employee<<endl;
+                   cout<< temp->ID_of_Employee<<endl;
+                   cout<< temp->PhoneNo_of_employee<<endl;
+                   cout<< temp->Salary<<endl;
+                   cout<< temp->Work_hours<<endl;
+                    temp = temp->next;
+                                                        }
+                                  
+                if  (temp != NULL&& temp->ID_of_Employee != ID_Employee ) {
+            cout << "\nThere is no employee with the ID " << ID_Employee << " in the system\n";
+            break;
+                     }
+                            }    }}
+                    
+void UpdateSalary( Employee*newEmp)
+ {
+	 int extra;
+	 int ID_Employee; 
+	  cout<<"Enter the ID of employee "<<endl;
+    cin>> ID_Employee;
+	 while (newEmp != NULL)
+	 {
+		 if (newEmp->ID_of_Employee == ID_Employee)
+		 {
+			 if (newEmp->Salary > 32)
+			 {
+				 extra = newEmp->Work_hours - 32;
+				 newEmp->Salary = newEmp->Salary + extra*(0.02*newEmp->Salary);
+				 
+                 cout << "Employee salary is updated successfully" << endl;
+				 break;
+			 }
+		 }
+	 }
+ }
+int main()
+{
+   Employee *head = NULL;
+   int choice;
+   
+   int ID_Employee ,PhoneNo_employee ,Working_hours ,Sal ;
+   string Name_Employee , First_day_work ,Address_employee;
+
+while (i < 5) {
+    
+    cout <<"\n\n--------------------------------------------------------\n";
+    cout << "\t      Employee Management System\n";
+    cout << "--------------------------------------------------------\n";
+    cout << "\t1 . Insert Insert employee record\n\t2 . Delete employee record\n\t3 . Update employee record\n";
+    cout << "\t4 . Show employee\n\t5 . Search employee\n\t6 . Update salary\n\t7 . Exit\n";
+    cout << "--------------------------------------------------------\n";
+    cout << "  Please choice a number from the list\n";
+    cin>> choice;
+    
+    if (choice == 1){
+       int found ; 
+        
+        
+            cout << "\t---------------------------------------" << endl;
+            cout << "\t\t  Insert Employment " << endl;
+            cout << "\t---------------------------------------" << endl;
+            cout << "  please enter the employee information" << endl;
+        
+   cout<<"• name of employee "<<endl;
+   cin>>Name_Employee;
+   cout<<"• ID of employee "<<endl;
+   cin>> ID_Employee;
+  cheking(&head,ID_Employee) ;
+   cout<<"• First day of work "<<endl;
+   cin>>First_day_work;
+   cout<<"• Address of employee "<<endl;
+   cin>> Address_employee;
+   cout<<"• PhoneNO of employee "<<endl;
+   cin>> PhoneNo_employee;
+   cout<<"• workHourse "<<endl;
+   cin>> Working_hours;
+        cout<<"• salary of employee "<<endl;
+    cin>> Sal;
+    InsertEmployee(&head ,Name_Employee ,First_day_work,
+    Address_employee, ID_Employee, PhoneNo_employee,Working_hours , Sal);
+    }
+if (choice == 2){
+    cout << "\t---------------------------------------" << endl;
+            cout << "\t\tDelete Employment by ID " << endl;
+            cout << "\t---------------------------------------" << endl;
+            cout << " Please Enter Employee ID thet you want to delete : "<<endl;
+     cin>> ID_Employee;
+     DeleteEmployee(&head,ID_Employee);
+}
+if (choice == 3){
+    cout << "\t---------------------------------------" << endl;
+            cout << "\t\t Update the informations of certain Employee  " << endl;
+            cout << "\t---------------------------------------" << endl;
+            cout << " Please Enter Employee ID thet you want to update: "<<endl;
+    UpdateEmployee(head);
+}
+if (choice == 4){
+    cout << "\t---------------------------------------" << endl;
+    cout << "\t\tDisplay All Employments " << endl;
+    cout << "\t---------------------------------------" << endl;
+    showEmployee(head);
+}
+if (choice == 5){
+            cout << "\t---------------------------------------" << endl;
+            cout << "\t\tSearch  Employment by ID " << endl;
+            cout << "\t---------------------------------------" << endl;
+            cout << " Please Enter Employee ID thet you want: "<<endl;
+    
+    searchEmployee(head);
+}
+if (choice == 6){
+     cout << "\t---------------------------------------" << endl;
+            cout << "\t\t Update the Salary of certain Employee  " << endl;
+            cout << "\t---------------------------------------" << endl;
+            cout << " Please Enter Employee ID thet you want to update: "<<endl;
+        UpdateSalary(head);
+
+}
+if (choice == 7){
+        cout << "Program ended, Thank you.\n";
+	return 0;
+}
+}
+    return 0;
+}
